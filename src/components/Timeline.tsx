@@ -1,18 +1,18 @@
+// src/components/Timeline.tsx
 import { View, Text, StyleSheet } from "react-native";
 import React from "react";
-import { useContext } from "react";
-import { AppContext, useAppContext } from "../contexts/AppContext";
+import { useAppContext } from "../contexts/AppContext";
+import { useTheme } from "../contexts/ThemeContext";
 
 export default function Timeline() {
-  // example using useContext (this is bad because you need to know the context and there's no check for the provider wrapper)
-  // const app = useContext(AppContext);
-
-  // example using our custom consumer hook (it's simpler):
   const app = useAppContext();
+  const { palette } = useTheme();
 
   return (
-    <View style={styles.container}>
-      <Text>Timeline - Track {app.track}</Text>
+    <View style={[styles.container, { backgroundColor: palette.background }]}>
+      <Text style={[styles.text, { color: palette.color }]}>
+        Timeline - Track {app.track}
+      </Text>
     </View>
   );
 }
@@ -20,5 +20,11 @@ export default function Timeline() {
 const styles = StyleSheet.create({
   container: {
     margin: 24,
+    padding: 16,
+    borderRadius: 8,
+  },
+  text: {
+    fontSize: 16,
+    fontWeight: "bold",
   },
 });
